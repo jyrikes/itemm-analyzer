@@ -34,7 +34,9 @@ app.security = Security(app, user_datastore)
 @app.route("/dac")
 @auth_required()
 def dac():
-    return render_template("dac.html")
+    nome = "Neto"
+    resultado = 10 + 10
+    return render_template("dac.html", nome=nome, dado=resultado)
 
 
 @app.route("/polarizacao")
