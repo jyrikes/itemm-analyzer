@@ -11,6 +11,10 @@ from flask_security import (
 from database import db_session, init_db
 from models.auth import User, Role
 
+from flask_wtf import FlaskForm
+from wtforms import FileField
+from flask_uploads import configure_uploads, IMAGES, UploadSet
+
 # Create app
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -29,6 +33,16 @@ app.config["SECURITY_PASSWORD_SALT"] = os.environ.get(
 user_datastore = SQLAlchemySessionUserDatastore(db_session, User, Role)
 app.security = Security(app, user_datastore)
 
+#Flask Uploads
+app.config['UPLOADED_IMAGES_DEST'] = 'uploads/images'
+
+images = UploadSet('images', IMAGES)
+configure_uploads(app, images)
+
+#Forms
+
+class MyForm(FlaskForm):
+    image = FileField('image')
 
 # Views
 @app.route("/dac")
@@ -57,10 +71,16 @@ def consumo():
     return render_template("consumo.html")
 
 
-@app.route("/")
+@app.route('/', methods=['GET', 'POST'])
 @app.route("/home")
 @auth_required()
 def home():
+    form = MyForm()
+
+    if form.validate_on_submit():
+        
+        filename = images.save(form.image.data)
+        return f'Filename: { filename }'
     return render_template("index.html", name=current_user.email)
     # return render_template_string("Hello {{email}} !", email=current_user.email)
 
