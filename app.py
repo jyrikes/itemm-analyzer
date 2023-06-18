@@ -12,12 +12,14 @@ from database import db_session, init_db
 from models.auth import User, Role
 
 from flask_wtf import FlaskForm
-from wtforms import FileField
-from flask_uploads import configure_uploads, IMAGES, UploadSet
+from wtforms import FileField, SubmitField
+from werkzeug.utils import secure_filename
 
 # Create app
 app = Flask(__name__)
 app.config["DEBUG"] = True
+
+app.config["UPLOAD_FOLDER"] = "uploads"
 
 # Generate a nice key using secrets.token_urlsafe()
 app.config["SECRET_KEY"] = os.environ.get(
@@ -33,16 +35,19 @@ app.config["SECURITY_PASSWORD_SALT"] = os.environ.get(
 user_datastore = SQLAlchemySessionUserDatastore(db_session, User, Role)
 app.security = Security(app, user_datastore)
 
-#Flask Uploads
-app.config['UPLOADED_IMAGES_DEST'] = 'uploads/images'
 
-images = UploadSet('images', IMAGES)
-configure_uploads(app, images)
+# Support for file upload
+def create_upload_folder():
+    upload_folder = app.config["UPLOAD_FOLDER"]
+    if not os.path.exists(upload_folder):
+        os.makedirs(upload_folder)
 
-#Forms
 
+# Forms
 class MyForm(FlaskForm):
-    image = FileField('image')
+    csv = FileField("csv")
+    upload = SubmitField("upload")
+
 
 # Views
 @app.route("/dac")
@@ -71,17 +76,20 @@ def consumo():
     return render_template("consumo.html")
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 @app.route("/home")
 @auth_required()
 def home():
     form = MyForm()
 
     if form.validate_on_submit():
-        
-        filename = images.save(form.image.data)
-        return f'Filename: { filename }'
-    return render_template("index.html", name=current_user.email)
+        create_upload_folder()  # Create the upload folder if necessary
+        file = form.csv.data
+        filename = secure_filename(file.filename)
+        file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        file.save(file_path)
+        return f"Filename: { filename }"
+    return render_template("index.html", form=form, name=current_user.email)
     # return render_template_string("Hello {{email}} !", email=current_user.email)
 
 

@@ -7,4 +7,10 @@
 {% block content %}
   <h1 class="h2">Dashboard</h1>
   <p>This is the homepage of a simple admin interface which is part of a tutorial written on Themesberg</p>
+  <form method="POST"  enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    {{ form.csv }}
+    {{ form.upload }}
+  </form>
 {% endblock %}
