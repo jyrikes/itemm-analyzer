@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flask_security import (
     Security,
     current_user,
@@ -37,10 +37,11 @@ app.security = Security(app, user_datastore)
 
 
 # Support for file upload
-def create_upload_folder():
+def get_upload_folder():
     upload_folder = app.config["UPLOAD_FOLDER"]
     if not os.path.exists(upload_folder):
         os.makedirs(upload_folder)
+    return upload_folder
 
 
 # Forms
@@ -76,6 +77,12 @@ def consumo():
     return render_template("consumo.html")
 
 
+@app.route("/success")
+@auth_required()
+def success():
+    return render_template("success.html")
+
+
 @app.route("/", methods=["GET", "POST"])
 @app.route("/home")
 @auth_required()
@@ -83,14 +90,13 @@ def home():
     form = MyForm()
 
     if form.validate_on_submit():
-        create_upload_folder()  # Create the upload folder if necessary
+        folder = get_upload_folder()  # Create the upload folder if necessary
         file = form.csv.data
         filename = secure_filename(file.filename)
-        file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        file_path = os.path.join(folder, filename)
         file.save(file_path)
-        return f"Filename: { filename }"
+        return redirect("/success")
     return render_template("index.html", form=form, name=current_user.email)
-    # return render_template_string("Hello {{email}} !", email=current_user.email)
 
 
 # one time setup
