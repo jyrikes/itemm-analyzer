@@ -44,9 +44,64 @@ def get_upload_folder():
     return upload_folder
 
 
+# def save_file(file_form):
+#     folder = get_upload_folder()  # Create the upload folder if necessary
+#     filename = secure_filename(file_form.filename)
+#     file_path = os.path.join(folder, filename)
+#     file_form.save(file_path)
+
+
 # Forms
 class MyForm(FlaskForm):
     csv = FileField("csv")
+    am_01_equi = FileField("am_01_equi")
+    am_01_form = FileField("am_01_form")
+    am_01_peukert = FileField("am_01_peukert")
+    am_01_qdca_mainres = FileField("am_01_qdca_mainres")
+    am_01_qdca = FileField("am_01_qdca")
+    am_01_recarga_dhc = FileField("am_01_recarga_dhc")
+    am_01_recarga_qdca = FileField("am_01_recarga_qdca")
+    am_01_recarga_dch_prot = FileField("am_01_recarga_dch_prot")
+    am_02_equi = FileField("am_02_equi")
+    am_02_form = FileField("am_02_form")
+    am_02_peukert = FileField("am_02_peukert")
+    am_02_qdca_mainres = FileField("am_02_qdca_mainres")
+    am_02_qdca = FileField("am_02_qdca")
+    am_02_alta_dca = FileField("am_02_alta_dca")
+    am_02_qdca = FileField("am_02_qdca")
+    am_02_dch_prot = FileField("am_02_dch_prot")
+    am_03_agua = FileField("am_03_agua")
+    am_03_equi = FileField("am_03_equi")
+    am_03_form = FileField("am_03_form")
+    am_03_pol = FileField("am_03_pol")
+    am_04_cons = FileField("am_04_cons")
+    am_04_equi = FileField("am_04_equi")
+    am_04_form = FileField("am_04_form")
+    am_04_pol = FileField("am_04_pol")
+    am_05_equi = FileField("am_05_equi")
+    am_05_form = FileField("am_05_form")
+    am_05_peukert = FileField("am_05_peukert")
+    am_05_qdca_mainres = FileField("am_05_qdca_mainres")
+    am_05_qdca = FileField("am_05_qdca")
+    am_05_rec_alta_dch = FileField("am_05_rec_alta_dch")
+    am_05_rec_qdca = FileField("am_05_rec_qdca")
+    am_05_rec_alta_dch = FileField("am_05_rec_alta_dch")
+    am_06_equi = FileField("am_06_equi")
+    am_06_form = FileField("am_06_form")
+    am_06_peukert = FileField("am_06_peukert")
+    am_06_qdca_mainres = FileField("am_06_qdca_mainres")
+    am_06_qdca = FileField("am_06_qdca")
+    am_06_rec_alta_dch = FileField("am_06_rec_alta_dch")
+    am_06_rec_qdca = FileField("am_06_rec_qdca")
+    am_06_alta_dch = FileField("am_06_alta_dch")
+    am_07_consu = FileField("am_07_consu")
+    am_07_equi = FileField("am_07_equi")
+    am_07_form = FileField("am_07_form")
+    am_07_pola = FileField("am_07_pola")
+    am_08_consu = FileField("am_08_consu")
+    am_08_equi = FileField("am_08_equi")
+    am_08_form = FileField("am_08_form")
+    am_08_pola = FileField("am_08_pola")
     upload = SubmitField("upload")
 
 
@@ -83,6 +138,56 @@ def success():
     return render_template("success.html")
 
 
+# am_01_equi
+#     am_01_form
+#     am_01_peukert
+#     am_01_qdca_mainres
+#     am_01_qdca
+#     am_01_recarga_dhc
+#     am_01_recarga_qdca
+#     am_01_recarga_dch_prot
+#     am_02_equi
+#     am_02_form
+#     am_02_peukert
+#     am_02_qdca_mainres
+#     am_02_qdca
+#     am_02_alta_dca
+#     am_02_qdca
+#     am_02_dch_prot
+#     am_03_agua
+#     am_03_equi
+#     am_03_form
+#     am_03_pol
+#     am_04_cons
+#     am_04_equi
+#     am_04_form
+#     am_04_pol
+#     am_05_equi
+#     am_05_form
+#     am_05_peukert
+#     am_05_qdca_mainres
+#     am_05_qdca
+#     am_05_rec_alta_dch
+#     am_05_rec_qdca
+#     am_05_rec_alta_dch
+#     am_06_equi
+#     am_06_form
+#     am_06_peukert
+#     am_06_qdca_mainres
+#     am_06_qdca
+#     am_06_rec_alta_dch
+#     am_06_rec_qdca
+#     am_06_alta_dch
+#     am_07_consu
+#     am_07_equi
+#     am_07_form
+#     am_07_pola
+#     am_08_consu
+#     am_08_equi
+#     am_08_form
+#     am_08_pola
+
+
 @app.route("/", methods=["GET", "POST"])
 @app.route("/home")
 @auth_required()
@@ -90,6 +195,9 @@ def home():
     form = MyForm()
 
     if form.validate_on_submit():
+        # file_list = [form.am_01_equi.data]
+        # for file in file_list:
+        #     save_file(file)
         folder = get_upload_folder()  # Create the upload folder if necessary
         file = form.csv.data
         filename = secure_filename(file.filename)
