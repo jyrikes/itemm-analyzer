@@ -35,3 +35,46 @@
 .sidebar .nav-link.active {
     color: #0d6efd;
 }
+
+.custom-button {
+    width: 9em;
+    height: 3em;
+    border-radius: 30em;
+    font-size: 15px;
+    font-family: inherit;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+  }
+  
+.custom-button::before {
+    content: '';
+    width: 0;
+    height: 3em;
+    border-radius: 30rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right,#6e5bff 0%, #129df4 100%);
+    transition: .5s ease;
+    display: block;
+    z-index: -1;
+
+  }
+  
+  /* Estilos para cores personalizadas */
+.custom-button::before {
+    width:9em;
+  }
+.custom-button::before {
+    /* Estilos do gradiente */
+    width: 0;
+    /* Outros estilos */
+  }
+  
+.custom-button:hover::before {
+    width: 100%;
+    /* Estilos da transição */
