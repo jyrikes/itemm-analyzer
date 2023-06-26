@@ -128,14 +128,24 @@ def polarizacao():
 @app.route("/pekeurt")
 @auth_required()
 def pekeurt():
- 
+    
     #------------------- AM01--------------------"
+    
+# Captura o caminho do arquivo durante a sessão
+    caminho_arquivo = session["am_01_equi"] 
 
+# Carrega o arquivo XLSX
+    xlsx_file = pd.read_excel(caminho_arquivo)
+
+# Define o caminho do arquivo CSV de saída
+    caminho_csv = caminho_arquivo.replace(".xlsx", ".csv")
+
+# Salva o arquivo CSV
+    xlsx_file.to_csv(caminho_csv, index=False, sep=',')
         #EQUALIZAÇÃO
-    caminho_arquivo1 = session["am_01_equi"]  # 
+     
         # Carrega os dados do arquivo CSV para o DataFrame do pandas
-    consultaequalizacaoAm01 = pd.read_csv("caminho_arquivo", delimiter=';', on_bad_lines='skip', low_memory=False) 
-      # Substitui vírgula por ponto
+    consultaequalizacaoAm01 = pd.read_csv(caminho_csv, delimiter=',', on_bad_lines='skip', low_memory=False) 
     consultaequalizacaoAm01['Voltage'] = consultaequalizacaoAm01['Voltage'].str.replace(',', '.')
     consultaequalizacaoAm01['Current'] = consultaequalizacaoAm01['Current'].str.replace(',', '.')
         # Converte a coluna 'Voltage' para float, pulando os valores de string
@@ -155,8 +165,20 @@ def pekeurt():
     linha_especificaequalizacaoAm01=(linha_especificaequalizacaoAm01[['Step Time', 'Current']])
 
         #PEUKERT
-    caminho_arquivo1 = session["am_01_peukert"]
-    consultapeukertAm01 = pd.read_csv("caminho_arquivo1", delimiter=';', on_bad_lines='skip', low_memory=False)
+
+ # Captura o caminho do arquivo durante a sessão
+    caminho_arquivo1 = session["am_01_peukert"] 
+
+# Carrega o arquivo XLSX
+    xlsx_file = pd.read_excel(caminho_arquivo1)
+
+# Define o caminho do arquivo CSV de saída
+    caminho_csv1 = caminho_arquivo.replace(".xlsx", ".csv")
+
+# Salva o arquivo CSV
+    xlsx_file.to_csv(caminho_csv1, index=False, sep=',')
+
+    consultapeukertAm01 = pd.read_csv(caminho_csv1, delimiter=',', on_bad_lines='skip', low_memory=False)
         # Substitui vírgula por ponto
     consultapeukertAm01['Voltage'] = consultapeukertAm01['Voltage'].str.replace(',', '.')
     consultapeukertAm01['Current'] = consultapeukertAm01['Current'].str.replace(',', '.')
@@ -183,11 +205,21 @@ def pekeurt():
     
 
     #-----------------------------AM02----------------------------
+    # Captura o caminho do arquivo durante a sessão
+    caminho_arquivo2 = session["am_02_equi"] 
 
+# Carrega o arquivo XLSX
+    xlsx_file = pd.read_excel(caminho_arquivo2)
+
+# Define o caminho do arquivo CSV de saída
+    caminho_csv2 = caminho_arquivo.replace(".xlsx", ".csv")
+
+# Salva o arquivo CSV
+    xlsx_file.to_csv(caminho_csv2, index=False, sep=',')
         #EQUALIZAÇÃO
-    caminho_arquivo3 = session["am_02_equi"]
+    
         # Carrega os dados do arquivo CSV para o DataFrame do pandas
-    consultaequalizacaoAm02 = pd.read_csv("caminho_arquivo3", delimiter=';', on_bad_lines='skip', low_memory=False)
+    consultaequalizacaoAm02 = pd.read_csv(caminho_csv2, delimiter=',', on_bad_lines='skip', low_memory=False)
         # Substitui vírgula por ponto
     consultaequalizacaoAm02['Voltage'] = consultaequalizacaoAm02['Voltage'].str.replace(',', '.')
     consultaequalizacaoAm02['Current'] = consultaequalizacaoAm02['Current'].str.replace(',', '.')
@@ -207,8 +239,20 @@ def pekeurt():
     linha_especificaequalizacaoAm02=(linha_especificaequalizacaoAm02[['Step Time', 'Current']])
 
         #PEUKERT
-    caminho_arquivo4 = session["am_02_peukert"]
-    consultapeukertAm02 = pd.read_csv("caminho_arquivo4", delimiter=';', on_bad_lines='skip', low_memory=False)
+
+# Captura o caminho do arquivo durante a sessão
+    caminho_arquivo3 = session["am_02_peukert"] 
+
+# Carrega o arquivo XLSX
+    xlsx_file = pd.read_excel(caminho_arquivo3)
+
+# Define o caminho do arquivo CSV de saída
+    caminho_csv3 = caminho_arquivo.replace(".xlsx", ".csv")
+
+# Salva o arquivo CSV
+    xlsx_file.to_csv(caminho_csv3, index=False, sep=',')
+    
+    consultapeukertAm02 = pd.read_csv(caminho_csv3, delimiter=',', on_bad_lines='skip', low_memory=False)
         # Substitui vírgula por ponto
     consultapeukertAm02['Voltage'] = consultapeukertAm02['Voltage'].str.replace(',', '.')
     consultapeukertAm02['Current'] = consultapeukertAm02['Current'].str.replace(',', '.')
@@ -238,11 +282,22 @@ def pekeurt():
     
 
     #-----------------------------AM05----------------------------
-    caminho_arquivo5 = session["am_05_equi"]
+    # Captura o caminho do arquivo durante a sessão
+    caminho_arquivo4 = session["am_05_equi"] 
+
+# Carrega o arquivo XLSX
+    xlsx_file = pd.read_excel(caminho_arquivo4)
+
+# Define o caminho do arquivo CSV de saída
+    caminho_csv4 = caminho_arquivo.replace(".xlsx", ".csv")
+
+# Salva o arquivo CSV
+    xlsx_file.to_csv(caminho_csv4, index=False, sep=',')
+    
         #EQUALIZAÇÃO
     
         # Carrega os dados do arquivo CSV para o DataFrame do pandas
-    consultaequalizacaoAm05 = pd.read_csv("caminho_arquivo5", delimiter=';', on_bad_lines='skip', low_memory=False)
+    consultaequalizacaoAm05 = pd.read_csv(caminho_csv4, delimiter=',', on_bad_lines='skip', low_memory=False)
         # Substitui vírgula por ponto
     consultaequalizacaoAm05['Voltage'] = consultaequalizacaoAm05['Voltage'].str.replace(',', '.')
     consultaequalizacaoAm05['Current'] = consultaequalizacaoAm05['Current'].str.replace(',', '.')
@@ -263,8 +318,19 @@ def pekeurt():
     linha_especificaequalizacaoAm05=(linha_especificaequalizacaoAm05[['Step Time', 'Current']])
 
         #PEUKERT
-    caminho_arquivo6 = session["am_05_peukert"]
-    consultapeukertAm05 = pd.read_csv("caminho_arquivo6", delimiter=';', on_bad_lines='skip', low_memory=False)
+# Captura o caminho do arquivo durante a sessão
+    caminho_arquivo5 = session["am_05_peukert"] 
+
+# Carrega o arquivo XLSX
+    xlsx_file = pd.read_excel(caminho_arquivo5)
+
+# Define o caminho do arquivo CSV de saída
+    caminho_csv5 = caminho_arquivo.replace(".xlsx", ".csv")
+
+# Salva o arquivo CSV
+    xlsx_file.to_csv(caminho_csv5, index=False, sep=',')
+
+    consultapeukertAm05 = pd.read_csv(caminho_csv5, delimiter=',', on_bad_lines='skip', low_memory=False)
         # Substitui vírgula por ponto
     consultapeukertAm05['Voltage'] = consultapeukertAm05['Voltage'].str.replace(',', '.')
     consultapeukertAm05['Current'] = consultapeukertAm05['Current'].str.replace(',', '.')
@@ -293,10 +359,22 @@ def pekeurt():
 
     #-----------------------------AM06----------------------------
 
+    # Captura o caminho do arquivo durante a sessão
+    caminho_arquivo6 = session["am_06_equi"] 
+
+# Carrega o arquivo XLSX
+    xlsx_file = pd.read_excel(caminho_arquivo6)
+
+# Define o caminho do arquivo CSV de saída
+    caminho_csv6 = caminho_arquivo.replace(".xlsx", ".csv")
+
+# Salva o arquivo CSV
+    xlsx_file.to_csv(caminho_csv6, index=False, sep=',')
+
         #EQUALIZAÇÃO
-    caminho_arquivo7 = session["am_06_equi"]
+    caminho_arquivo6 = session["am_06_equi"]
         # Carrega os dados do arquivo CSV para o DataFrame do pandas
-    consultaequalizacaoAm06 = pd.read_csv("caminho_arquivo7", delimiter=';', on_bad_lines='skip', low_memory=False)
+    consultaequalizacaoAm06 = pd.read_csv(caminho_csv6, delimiter=',', on_bad_lines='skip', low_memory=False)
         # Substitui vírgula por ponto
     consultaequalizacaoAm06['Voltage'] = consultaequalizacaoAm06['Voltage'].str.replace(',', '.')
     consultaequalizacaoAm06['Current'] = consultaequalizacaoAm06['Current'].str.replace(',', '.')
@@ -317,8 +395,19 @@ def pekeurt():
 
 
         #PEUKERT
-    caminho_arquivo8 = session["am_06_peukert"]
-    consultapeukertAm06 = pd.read_csv("caminho_arquivo8", delimiter=';', on_bad_lines='skip', low_memory=False)
+# Captura o caminho do arquivo durante a sessão
+    caminho_arquivo7 = session["am_06_peukert"] 
+
+# Carrega o arquivo XLSX
+    xlsx_file = pd.read_excel(caminho_arquivo7)
+
+# Define o caminho do arquivo CSV de saída
+    caminho_csv7 = caminho_arquivo.replace(".xlsx", ".csv")
+
+# Salva o arquivo CSV
+    xlsx_file.to_csv(caminho_csv7, index=False, sep=',')
+
+    consultapeukertAm06 = pd.read_csv(caminho_csv7, delimiter=',', on_bad_lines='skip', low_memory=False)
         # Substitui vírgula por ponto
     consultapeukertAm06['Voltage'] = consultapeukertAm06['Voltage'].str.replace(',', '.')
     consultapeukertAm06['Current'] = consultapeukertAm06['Current'].str.replace(',', '.')
