@@ -23,8 +23,16 @@
     <button class="custom-button" onclick="exibirConsulta4()">Am06_CBI22077</button>
     <pre id="consulta4" style="display: none;"><p>  </p>{{consulta4}}<p>  </p></pre>
 
-    <button class="custom-button" onclick="graficos()">Gráficos</button>
+    <!-- <button class="custom-button" onclick="graficos()">Gráficos</button>
     </pre>
+      function graficos() {
+      var graficosElement = document.getElementById('graficos');
+      if (graficosElement.style.display === 'block') {
+        graficosElement.style.display = 'none';
+      } else {
+        graficosElement.style.display = 'block';
+      }
+    }-->-->
 
   </nav>
   
@@ -62,15 +70,6 @@
         consulta4Element.style.display = 'none';
       } else {
         consulta4Element.style.display = 'block';
-      }
-    }
-
-    function graficos() {
-      var graficosElement = document.getElementById('graficos');
-      if (graficosElement.style.display === 'block') {
-        graficosElement.style.display = 'none';
-      } else {
-        graficosElement.style.display = 'block';
       }
     }
 
