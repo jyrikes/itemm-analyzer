@@ -1,0 +1,50 @@
+{% from "security/_macros.html" import render_field_with_errors, render_field, render_field_errors, render_form_errors,
+prop_next %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ _fsdomain('Login') }}</title>
+  <link rel="stylesheet" href="{{url_for('static', filename="style-login.css")}}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <div class="title"><span>{{ _fsdomain('Login') }}</span></div>
+      <form action="{{ url_for_security('login') }}{{ prop_next() }}" method="post" name="login_user_form">
+        {{ login_user_form.hidden_tag() }}
+        {{ render_form_errors(login_user_form) }}
+        <div class="row">
+          {{ render_field_with_errors(login_user_form.email, class_="form-control font-weight-light",
+          placeholder="Username or Email") }}
+        </div>
+        <br>
+        <div class="row">
+          {{ render_field_with_errors(login_user_form.password, class_="form-control font-weight-light",
+          placeholder="Password") }}
+        </div>
+        <br>
+        {% if security.recoverable %}
+        <div class="form-group">
+          <a href="{{ url_for_security('forgot_password') }}">{{ _('Forgot password?') }}</a>
+        </div>
+        {% endif %}
+        {{ render_field_errors(login_user_form.csrf_token) }}
+        <div class="row button">
+          {{ render_field(login_user_form.submit, class_="btn btn-primary") }}
+        </div>
+        {% if security.registerable %}
+        <a href="{{url_for_security('register')}}" class="float-right">
+          Don't have an account?
+        </a>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>

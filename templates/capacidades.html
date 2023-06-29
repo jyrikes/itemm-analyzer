@@ -1,0 +1,188 @@
+{% extends 'base_main.html' %}
+
+
+{% block title %}
+CAPACIDADES
+{% endblock %}
+
+{% block content %}
+<script>
+    function toggleContent(contentId) {
+        var content = document.getElementById(contentId);
+        var button = document.getElementById(contentId + "-button");
+        var checkbox = document.getElementById(contentId + "-checkbox");
+
+        if (checkbox.checked) {
+            content.style.display = "block";
+            button.classList.add('selected');
+        } else {
+            content.style.display = "none";
+            button.classList.remove('selected');
+        }
+    }
+</script>
+
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<style>
+    .content {
+        display: none;
+        margin-top: 10px;
+    }
+
+    .custom-button {
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 6px 12px;
+        cursor: pointer;
+        background-color: #fff;
+    }
+
+    #graf {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 20px;
+        /* Espaço entre a div e outros elementos à direita */
+        margin-bottom: 20px;
+        /* Espaço entre a div e outros elementos abaixo */
+        width: 200px;
+        /* Largura desejada da div */
+        height: 200px;
+        /* Altura desejada da div */
+        background-color: #f1f1f1;
+        /* Cor de fundo desejada */
+    }
+
+    .custom-button.selected {
+        background-color: #aaf;
+    }
+
+    #chart {
+        width: 800px;
+        height: 600px;
+        margin: 0 auto;
+    }
+
+
+    /* Estilo para tabelas */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ccc;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #001e3d;
+        color: #f3f2f2;
+        font-weight: bold;
+    }
+
+
+    th:hover {
+        background-color: #225577;
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f7fafd;
+    }
+
+    tr:hover {
+        background-color: #b3c9e6;
+    }
+</style>
+<h1 class="h2">Capacidades</h1>
+<section id="dadosCapacidade">
+
+    <label>
+        <input id="c1-checkbox" type="checkbox" name="content" value="c1" style="display: none"
+            onchange="toggleContent('c1')" {% if 'c1' in selected_content %}checked{% endif %} />
+        <span id="c1-button" class="custom-button {% if 'c1' in selected_content %}selected{% endif %}"
+            onclick="toggleContent('c1')">C1</span>
+    </label>
+
+    <label>
+        <input id="c2-checkbox" type="checkbox" name="content" value="c2" style="display: none"
+            onchange="toggleContent('c2')" {% if 'c2' in selected_content %}checked{% endif %} />
+        <span id="c2-button" class="custom-button {% if 'c2' in selected_content %}selected{% endif %}"
+            onclick="toggleContent('c2')">C2</span>
+    </label>
+
+    <label>
+        <input id="c3-checkbox" type="checkbox" name="content" value="c3" style="display: none"
+            onchange="toggleContent('c3')" {% if 'c3' in selected_content %}checked{% endif %} />
+        <span id="c3-button" class="custom-button {% if 'c3' in selected_content %}selected{% endif %}"
+            onclick="toggleContent('c3')">C3</span>
+    </label>
+
+    <label>
+        <input id="c4-checkbox" type="checkbox" name="content" value="c4" style="display: none"
+            onchange="toggleContent('c4')" {% if 'c4' in selected_content %}checked{% endif %} />
+        <span id="c4-button" class="custom-button {% if 'c4' in selected_content %}selected{% endif %}"
+            onclick="toggleContent('c4')">C4</span>
+    </label>
+    <label>
+        <input id="graficos-checkbox" type="checkbox" name="content" value="graficos" style="display: none"
+            onchange="toggleContent('graficos')" {% if 'graficos' in selected_content %}checked{% endif %} />
+        <span id="graficos-button" class="custom-button {% if 'graficos' in selected_content %}selected{% endif %}"
+            onclick="toggleContent('graficos')">Graficos</span>
+    </label>
+
+
+    <div id="c1" class="content" {% if 'c1' in selected_content %}style="display: block;" {% endif %}>
+        <div id="tabela">
+            </br>
+            <h3>Dados Capacidade 1</h3>
+            {{ c1_table | safe }}
+
+
+        </div>
+
+
+    </div>
+    <div id="c2" class="content" {% if 'c2' in selected_content %}style="display: block;" {% endif %}>
+        <div id="tabela">
+            </br>
+            <h3>Dados Capacidade 2</h3>
+            {{ c2_table | safe }}
+        </div>
+
+    </div>
+    <div id="c3" class="content" {% if 'c3' in selected_content %}style="display: block;" {% endif %}>
+        <div id="tabela">
+            </br>
+            <h3>Dados Capacidade 3</h3>
+            {{ c3_table | safe }}
+        </div>
+    </div>
+    <div id="c4" class="content" {% if 'c4' in selected_content %}style="display: block;" {% endif %}>
+        <div id="tabela">
+            </br>
+            <h3>Dados Capacidade 4</h3>
+            {{ c4_table | safe }}
+        </div>
+    </div>
+    <div id="graficos" class="content" {%if 'graficos' in selected_content %} style="display: block;" {%endif%}>
+        <h3>Graficos</h3>
+        <div id="chart"></div>
+
+        <script>
+
+            var jsonData = JSON.parse('{{ dataCarga|tojson|safe }}');
+            var layout = jsonData.layout;
+            var dados = jsonData.dados
+            Plotly.newPlot('chart', dados, layout);
+        </script>
+
+    </div>
+
+</section>
+{% endblock %}

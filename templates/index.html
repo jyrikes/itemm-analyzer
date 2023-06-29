@@ -1,0 +1,516 @@
+{% extends 'base_main.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<style>
+  /* Estilos para o formulário */
+  form {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+
+
+
+  h1 {
+    color: #333;
+  }
+
+  p {
+    color: #777;
+  }
+
+  h3 {
+    color: #333;
+    margin-top: 20px;
+  }
+
+  table {
+    margin-top: 10px;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  table td :hover {
+    font-size: large;
+
+  }
+
+  table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+
+  /* Estilos para campos de entrada */
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+  }
+
+  /* Estilos para o botão de envio */
+  input[type="submit"] {
+    background-color: #0b5485;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    scale: 1.2;
+  }
+</style>
+<h1 class="h2">Dashboard</h1>
+<p>This is the homepage of a simple admin interface which is part of a tutorial written on Themesberg</p>
+<form method="POST" enctype="multipart/form-data">
+  {{ form.csrf_token }}
+  {{ form.hidden_tag() }}
+  <!--
+  {{ form.csrf_token }}
+  {{ form.hidden_tag() }}
+  {{ form.csv }}
+  {{ form.upload }}
+</form>
+-->
+  <h3>Am 01</h3>
+  <table>
+    <tr>
+      <td>
+        <label for="myfile">Equalização 4X c20:</label>
+      </td>
+      <td>
+        {{ form.am_01_equi }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Form Prototipo:</label>
+      </td>
+      <td>
+        {{ form.am_01_form }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Peukert sem equal:</label>
+      </td>
+      <td>
+        {{ form.am_01_peukert }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">qDCA (Ic + Id) - MainRes:</label>
+      </td>
+      <td>
+        {{ form.am_01_qdca_mainres }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">qDCA (Ic + Id):</label>
+      </td>
+      <td>
+        {{ form.am_01_qdca }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Recarga apos Alta DCH:</label>
+      </td>
+      <td>
+        {{ form.am_01_recarga_dhc }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Recarga apos qDCA:</label>
+      </td>
+      <td>
+        {{ form.am_01_recarga_qdca }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Alta_DCH_Prot:</label>
+      </td>
+      <td>
+        {{ form.am_01_recarga_dch_prot }}
+      </td>
+    </tr>
+  </table>
+  <h3>Am 02</h3>
+  <table>
+    <tr>
+      <td>
+        <label for="myfile">Equalização 4X c20:</label>
+      </td>
+      <td>
+        {{ form.am_02_equi }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Form Prototipo:</label>
+      </td>
+      <td>
+        {{ form.am_02_form }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Peukert sem equal:</label>
+      </td>
+      <td>
+        {{ form.am_02_peukert }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">qDCA (Ic + Id) - MainRes:</label>
+      </td>
+      <td>
+        {{ form.am_02_qdca_mainres }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">qDCA (Ic + Id):</label>
+      </td>
+      <td>
+        {{ form.am_02_qdca }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Recarga apos Alta DCH:</label>
+      </td>
+      <td>
+        {{ form.am_02_alta_dca }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Recarga apos qDCA:</label>
+      </td>
+      <td>
+        {{ form.am_02_qdca }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Alta_DCH_Prot:</label>
+      </td>
+      <td>
+        {{ form.am_02_dch_prot }}
+      </td>
+    </tr>
+  </table>
+  <h3>Am 03</h3>
+  <table>
+    <tr>
+      <td>
+        <label for="myfile">Consumo água:</label>
+      </td>
+      <td>
+        {{ form.am_03_agua }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile"> EQUALIZACAO_4X_C20:</label>
+      </td>
+      <td>
+        {{ form.am_03_equi }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Form Prototipo:</label>
+      </td>
+      <td>
+        {{ form.am_03_form }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">POLARIZACAO_CV:</label>
+      </td>
+      <td>
+        {{ form.am_03_pol }}
+      </td>
+    </tr>
+  </table>
+  <h3>Am 04</h3>
+  <table>
+    <tr>
+      <td>
+        <label for="myfile">Consumo água:</label>
+      </td>
+      <td>
+        {{ form.am_04_cons }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile"> EQUALIZACAO_4X_C20:</label>
+      </td>
+      <td>
+        {{ form.am_04_equi }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Form Prototipo:</label>
+      </td>
+      <td>
+        {{ form.am_04_form }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">POLARIZACAO_CV:</label>
+      </td>
+      <td>
+        {{ form.am_04_pol }}
+      </td>
+    </tr>
+  </table>
+  <h3>Am 05</h3>
+  <table>
+    <tr>
+      <td>
+        <label for="myfile">Equalização 4X c20:</label>
+      </td>
+      <td>
+        {{ form.am_05_equi }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Form Prototipo:</label>
+      </td>
+      <td>
+        {{ form.am_05_form }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Peukert sem equal:</label>
+      </td>
+      <td>
+        {{ form.am_05_peukert }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">qDCA (Ic + Id) - MainRes:</label>
+      </td>
+      <td>
+        {{ form.am_05_qdca_mainres }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">qDCA (Ic + Id):</label>
+      </td>
+      <td>
+        {{ form.am_05_qdca }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Recarga apos Alta DCH:</label>
+      </td>
+      <td>
+        {{ form.am_05_rec_alta_dch }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Recarga apos qDCA:</label>
+      </td>
+      <td>
+        {{ form.am_05_rec_qdca }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Alta_DCH_Prot:</label>
+      </td>
+      <td>
+        {{ form.am_05_alta_dch }}
+      </td>
+    </tr>
+  </table>
+  <h3>Am 06</h3>
+  <table>
+    <tr>
+      <td>
+        <label for="myfile">Equalização 4X c20:</label>
+      </td>
+      <td>
+        {{ form.am_06_equi }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Form Prototipo:</label>
+      </td>
+      <td>
+        {{ form.am_06_form }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Peukert sem equal:</label>
+      </td>
+      <td>
+        {{ form.am_06_peukert }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">qDCA (Ic + Id) - MainRes:</label>
+      </td>
+      <td>
+        {{ form.am_06_qdca_mainres }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">qDCA (Ic + Id):</label>
+      </td>
+      <td>
+        {{ form.am_06_qdca }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Recarga apos Alta DCH:</label>
+      </td>
+      <td>
+        {{ form.am_06_rec_alta_dch }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Recarga apos qDCA:</label>
+      </td>
+      <td>
+        {{ form.am_06_rec_qdca }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Alta_DCH_Prot:</label>
+      </td>
+      <td>
+        {{ form.am_06_alta_dch }}
+      </td>
+    </tr>
+  </table>
+  <h3>Am 07</h3>
+  <table>
+    <tr>
+      <td>
+        <label for="myfile">Consumo água:</label>
+      </td>
+      <td>
+        {{ form.am_07_consu }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile"> EQUALIZACAO_4X_C20:</label>
+      </td>
+      <td>
+        {{ form.am_07_equi }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Form Prototipo:</label>
+      </td>
+      <td>
+        {{ form.am_07_form }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">POLARIZACAO_CV:</label>
+      </td>
+      <td>
+        {{ form.am_07_pola }}
+      </td>
+    </tr>
+  </table>
+  <h3>Am 08</h3>
+  <table>
+    <tr>
+      <td>
+        <label for="myfile">Consumo água:</label>
+      </td>
+      <td>
+        {{ form.am_08_consu }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile"> EQUALIZACAO_4X_C20:</label>
+      </td>
+      <td>
+        {{ form.am_08_equi }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">Form Prototipo:</label>
+      </td>
+      <td>
+        {{ form.am_08_form }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="myfile">POLARIZACAO_CV:</label>
+      </td>
+      <td>
+        {{ form.am_08_pola }}
+      </td>
+    </tr>
+  </table>
+  <h3>Versao dos dados </h3>
+  <tr>
+    <td>
+      <label for="myfile">Nome:</label>
+    </td>
+    <td>
+      {{ form.dataBase_name }}
+    </td>
+  </tr>
+  {{ form.upload }}
+
+</form>
+{% endblock %}

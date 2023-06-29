@@ -1,0 +1,4 @@
+1-Para que o programa funcione corretamente tem que se inserir dados pelos menos do primeiro campo até o ultimo campo do am2
+2-Até o momento estou inserindo e buscando apenas do dataBase em indexe 0
+3-Não deu tempo de implementar a parte do dca , pois o trabalho foi fazer funcionar adicionando os arquivos 
+
