@@ -117,8 +117,6 @@ class MyForm(FlaskForm):
     upload = SubmitField("upload")
 
 
-
-
 diretorio_atual = os.getcwd()
 caminho_dataBases = os.path.join(diretorio_atual, "dataBases")
 caminho_uploads = os.path.join(diretorio_atual, "uploads")
@@ -127,10 +125,11 @@ dataBaseName = ''
 upFiles = fl.FilesInteractor(caminho_uploads)
 filesDataBaseInteract = fl.FilesInteractor(caminho_dataBases)
 filesDatabase = filesDataBaseInteract.read()
-caminho = os.path.join(caminho_dataBases,filesDatabase[0])
+caminho = os.path.join(caminho_dataBases, filesDatabase[0])
 # init the data interface
 dataInterface = dt.DataInterface(caminho)
 # Views
+
 
 @app.route("/dac")
 @auth_required()
@@ -149,8 +148,8 @@ def capacidades():
     c2_table = capacidades[1].to_html()
     c3_table = capacidades[2].to_html()
     c4_table = capacidades[3].to_html()
-    dataCarga = json.loads(dataInterface.plotar(0,plan[8]))
-    dataDescarga = json.loads(dataInterface.plotar(1,plan[8]))
+    dataCarga = json.loads(dataInterface.plotar(0, plan[8]))
+    dataDescarga = json.loads(dataInterface.plotar(1, plan[8]))
 
     if request.method == 'POST':
         selected_content = request.form.get('content')
@@ -241,9 +240,9 @@ def home():
             ("am_08_pola", form.am_08_pola.data),
             ("dataBase_name", form.dataBase_name.data),
         ]
-       
+
         for file in file_list:
-            
+
             if isinstance(file[1], str):  # Verificar se é um campo de texto
                 texto_digitado = file[1]
                 dataBaseName = texto_digitado+".db"
@@ -253,7 +252,7 @@ def home():
                 session[file[0]] = path
 
         print(dataBaseName)
-        dc.DataCreator(diretorio, dataBaseName,"plan8","plan11")
+        dc.DataCreator(caminho_uploads, dataBaseName, "plan8", "plan11")
 
         return redirect("/success")
     return render_template("index.html", form=form, name=current_user.email)

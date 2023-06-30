@@ -1,10 +1,78 @@
 {% extends 'base_main.html' %}
 
 {% block title %}
-  Pekeurt
+Pekeurt
 {% endblock %}
 
 {% block content %}
-  <h1 class="h2">Pekeurt</h1>
-  <p>Coloque os dados calculados aqui.</p>
+</nav>
+<h1 class="h2">Peukert</h1>
+<p> Nas tabelas abaixo temos "Current" que diz respeito a corrente de descarga, enquanto "StepTime" é a duração em horas
+  até o step atingir 1,75V na respectiva corrente.</p>
+<p> </p>
+<nav>
+  <button class="custom-button" onclick="exibirConsulta1()">Am01_CBI22076</button>
+  <pre id="consulta1" style="display: none;"><p>  </p>{{consulta1}}<p>  </p></pre>
+
+
+  <button class="custom-button" onclick="exibirConsulta2()">Am02_CBI22076</button>
+  <pre id="consulta2" style="display: none;"><p>  </p>{{consulta2}}<p>  </p></pre>
+
+  <button class="custom-button" onclick="exibirConsulta3()">Am05_CBI22077</button>
+  <pre id="consulta3" style="display: none;"><p>  </p>{{consulta3}}<p>  </p></pre>
+
+  <button class="custom-button" onclick="exibirConsulta4()">Am06_CBI22077</button>
+  <pre id="consulta4" style="display: none;"><p>  </p>{{consulta4}}<p>  </p></pre>
+
+  <!-- <button class="custom-button" onclick="graficos()">Gráficos</button>
+    </pre>
+      function graficos() {
+      var graficosElement = document.getElementById('graficos');
+      if (graficosElement.style.display === 'block') {
+        graficosElement.style.display = 'none';
+      } else {
+        graficosElement.style.display = 'block';
+      }
+    }-->
+
+</nav>
+
+<script>
+  function exibirConsulta1() {
+    var consulta1Element = document.getElementById('consulta1');
+    if (consulta1Element.style.display === 'block') {
+      consulta1Element.style.display = 'none';
+    } else {
+      consulta1Element.style.display = 'block';
+    }
+  }
+
+  function exibirConsulta2() {
+    var consulta2Element = document.getElementById('consulta2');
+    if (consulta2Element.style.display === 'block') {
+      consulta2Element.style.display = 'none';
+    } else {
+      consulta2Element.style.display = 'block';
+    }
+  }
+
+  function exibirConsulta3() {
+    var consulta3Element = document.getElementById('consulta3');
+    if (consulta3Element.style.display === 'block') {
+      consulta3Element.style.display = 'none';
+    } else {
+      consulta3Element.style.display = 'block';
+    }
+  }
+
+  function exibirConsulta4() {
+    var consulta4Element = document.getElementById('consulta4');
+    if (consulta4Element.style.display === 'block') {
+      consulta4Element.style.display = 'none';
+    } else {
+      consulta4Element.style.display = 'block';
+    }
+  }
+
+</script>
 {% endblock %}
