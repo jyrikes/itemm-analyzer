@@ -122,7 +122,84 @@ def dac():
 @app.route("/polarizacao")
 @auth_required()
 def polarizacao():
-    return render_template("polarizacao.html")
+    #--------------------------AM03-inicio--------------------------------#
+    caminho_arquivo03 = session["am_03_pol"] 
+    xlsx_file03 = pd.read_excel(caminho_arquivo03)
+    caminho_csv03 = caminho_arquivo03.replace(".xlsx", ".csv")
+    xlsx_file03.to_csv(caminho_csv03, index=False, sep=',')
+    with open(caminho_csv03, 'r') as arquivo_csv:
+        leitor_csv_03 = pd.read_csv(arquivo_csv, sep=',', on_bad_lines='skip', low_memory=False)
+        leitor_csv_03['Current'] = pd.to_numeric(leitor_csv_03['Current'], errors='coerce')
+        leitor_csv_03['Voltage'] = pd.to_numeric(leitor_csv_03['Voltage'], errors='coerce')
+        leitor_csv_03['Step'] = pd.to_numeric(leitor_csv_03['Step'], errors='coerce')
+        leitor_csv_03 = leitor_csv_03.fillna(0)
+        am03 = leitor_csv_03.groupby('Step').last()
+    #--------------------------AM03-fim-----------------------------------#
+    #--------------------------AM04-inicio--------------------------------#     
+    caminho_arquivo04 = session["am_04_pol"] 
+    xlsx_file04 = pd.read_excel(caminho_arquivo04)
+    caminho_csv04 = caminho_arquivo04.replace(".xlsx", ".csv")
+    xlsx_file04.to_csv(caminho_csv04, index=False, sep=',')
+    with open(caminho_csv04, 'r') as arquivo_csv:
+        leitor_csv_04 = pd.read_csv(arquivo_csv, sep=',', on_bad_lines='skip', low_memory=False)
+        leitor_csv_04['Current'] = pd.to_numeric(leitor_csv_04['Current'], errors='coerce')
+        leitor_csv_04['Voltage'] = pd.to_numeric(leitor_csv_04['Voltage'], errors='coerce')
+        leitor_csv_04['Step'] = pd.to_numeric(leitor_csv_04['Step'], errors='coerce')
+        leitor_csv_04 = leitor_csv_04.fillna(0)
+        am04 = leitor_csv_04.groupby('Step').last()
+    #--------------------------AM04-fim-----------------------------------#
+    #--------------------------AM07-inicio--------------------------------#     
+    caminho_arquivo07 = session["am_07_pola"] 
+    xlsx_file07 = pd.read_excel(caminho_arquivo07)
+    caminho_csv07 = caminho_arquivo07.replace(".xlsx", ".csv")
+    xlsx_file07.to_csv(caminho_csv07, index=False, sep=',')
+    with open(caminho_csv07, 'r') as arquivo_csv:
+        leitor_csv_07 = pd.read_csv(arquivo_csv, sep=',', on_bad_lines='skip', low_memory=False)
+        leitor_csv_07['Current'] = pd.to_numeric(leitor_csv_07['Current'], errors='coerce')
+        leitor_csv_07['Voltage'] = pd.to_numeric(leitor_csv_07['Voltage'], errors='coerce')
+        leitor_csv_07['Step'] = pd.to_numeric(leitor_csv_07['Step'], errors='coerce')
+        leitor_csv_07 = leitor_csv_07.fillna(0)
+        am07 = leitor_csv_07.groupby('Step').last()
+    #--------------------------AM07-fim-----------------------------------#
+    #--------------------------AM08-inicio--------------------------------#     
+    caminho_arquivo08 = session["am_08_pola"] 
+    xlsx_file08 = pd.read_excel(caminho_arquivo08)
+    caminho_csv08 = caminho_arquivo08.replace(".xlsx", ".csv")
+    xlsx_file08.to_csv(caminho_csv08, index=False, sep=',')
+    with open(caminho_csv08, 'r') as arquivo_csv:
+        leitor_csv_08 = pd.read_csv(arquivo_csv, sep=',', on_bad_lines='skip', low_memory=False)
+        leitor_csv_08['Current'] = pd.to_numeric(leitor_csv_08['Current'], errors='coerce')
+        leitor_csv_08['Voltage'] = pd.to_numeric(leitor_csv_08['Voltage'], errors='coerce')
+        leitor_csv_08['Step'] = pd.to_numeric(leitor_csv_08['Step'], errors='coerce')
+        leitor_csv_08 = leitor_csv_08.fillna(0)
+        am08 = leitor_csv_08.groupby('Step').last()
+    #--------------------------AM08-fim-----------------------------------#
+    #--------------------------Médias-inicio------------------------------#
+    corrente_78 = [round((am07['Current'][i] + am08['Current'][i])/2, 6) for i in range(2, 13)]
+    tensao_78 = [round((am07['Voltage'][i] + am08['Voltage'][i])/2, 6) for i in range(2, 13)]
+    corrente_34 = [round((am03['Current'][i] + am04['Current'][i])/2, 6) for i in range(2, 13)]
+    tensao_34 = [round((am03['Voltage'][i] + am04['Voltage'][i])/2, 6) for i in range(2, 13)]
+
+    #--------------------------Gráfco-inicio---------------------------------#
+    plt.plot(tensao_78, corrente_78, 'o', label='CBI22-077')
+    plt.plot(tensao_34, corrente_34, 'o', label='CBI22-076')
+
+    # Adicione rótulos de eixo e título
+    plt.xlabel('Tensão (V)')
+    plt.ylabel('Corrente (A)')
+    plt.title('POLARIZAÇÃO CV')
+
+    # Adicione uma legenda
+    plt.legend()
+    plt.grid()
+    plt.savefig('static/images/grafico.png')
+
+    # Exiba o gráfico
+    plt.show()
+    plt.close()
+    #--------------------------Gráfico-fim-----------------------------------#
+ 
+    return render_template("polarizacao.html", am03=am03,am04=am04, am07=am07, am08=am08,corrente_78=corrente_78, tensao_78=tensao_78, corrente_34=corrente_34, tensao_34=tensao_34)
 
 
 @app.route("/pekeurt")
@@ -448,7 +525,7 @@ def consumo():
 @app.route("/success")
 @auth_required()
 def success():
-    check_file = os.path.exists(session["am_01_equi"])
+    check_file = os.path.exists(session["am_03_pol"])
     print(f"the file exists? {check_file}")
     return render_template("success.html")
 
