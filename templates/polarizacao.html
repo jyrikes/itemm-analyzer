@@ -5,6 +5,59 @@ Polarização
 {% endblock %}
 
 {% block content %}
-  <h1 class="h2">Polarização</h1>
-  <p>Coloque os dados calculados aqui.</p>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pol.css') }}">
+
+    <h1 class="h2">Polarização</h1>
+    <table class="polarization-table">
+        <thead>
+            <tr>
+                <th>Step</th>
+                <th>AM03 - Voltage</th>
+                <th>AM03 - Current</th>
+                <th>AM04 - Voltage</th>
+                <th>AM04 - Current</th>
+                <th>AM07 - Voltage</th>
+                <th>AM07 - Current</th>
+                <th>AM08 - Voltage</th>
+                <th>AM08 - Current</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(2, 13) %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ am03['Voltage'][i] }}</td>
+                <td>{{ am03['Current'][i] }}</td>
+                <td>{{ am04['Voltage'][i] }}</td>
+                <td>{{ am04['Current'][i] }}</td>
+                <td>{{ am07['Voltage'][i] }}</td>
+                <td>{{ am07['Current'][i] }}</td>
+                <td>{{ am08['Voltage'][i] }}</td>
+                <td>{{ am08['Current'][i] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table class="medias-table">
+        <thead>
+            <tr>
+                <th> Média de Tensão CBI22-077</th>
+                <th>Média de Corrente CBI22-077</th>
+                <th>Média de Tensão CBI22-076</th>
+                <th>Média de Corrente CBI22-076</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(2, 13) %}
+            <tr>
+                <td>{{ tensao_78[i-2] }}</td>
+                <td>{{ corrente_78[i-2] }}</td>
+                <td>{{ tensao_34[i-2] }}</td>
+                <td>{{ corrente_34[i-2] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <img src="{{ url_for('static', filename='images/grafico.png') }}" alt="Descrição da Imagem">
+
 {% endblock %}
